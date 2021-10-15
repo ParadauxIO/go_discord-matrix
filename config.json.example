@@ -1,0 +1,15 @@
+{
+    "discord": {
+        "token": "a"
+    }, 
+    
+    "matrix": {
+        "home-server": "b",
+        "username": "c",
+        "password": "d"
+    },
+
+    "mappings": [
+
+    ]
+}
