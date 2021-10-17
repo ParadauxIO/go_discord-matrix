@@ -4,16 +4,15 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 )
 
 type WebhookMessage struct {
-	content    string
-	username   string
-	avatar_url string
-	tts        bool
-	embeds     []Embed
+	Content   string  `json:"content"`
+	Username  string  `json:"username"`
+	AvatarUrl string  `json:"avatar_url"`
+	Tts       bool    `json:"tts"`
+	Embeds    []Embed `json:"embeds"`
 }
 
 type Embed struct {
@@ -24,11 +23,12 @@ type MessageResult struct {
 	// TODO
 }
 
-func sendMessage(webhook string, message WebhookMessage) MessageResult {
+func sendMessage(webhook string, message WebhookMessage) {
 	byteValue, err := json.Marshal(&message)
 
 	if err != nil {
-		return MessageResult{} // TODO err obj
+		//	return MessageResult{} // TODO err obj
+		return
 	}
 
 	var jsonString string
@@ -39,23 +39,25 @@ func sendMessage(webhook string, message WebhookMessage) MessageResult {
 	httpReq.Header.Set("Content-Type", "application/json")
 
 	if httpErr != nil {
-		return MessageResult{} // TODO err obj
+		//return MessageResult{} // TODO err obj
+		return
 	}
 
 	httpClient := &http.Client{}
 	httpResp, httpErr := httpClient.Do(httpReq)
 
 	if httpErr != nil {
-		return MessageResult{} // TODO err obj
+		//	return MessageResult{} // TODO err obj
+		return
 	}
 
 	defer httpResp.Body.Close()
 
-	fmt.Println("response Status:", httpResp.Status)
-	fmt.Println("response Headers:", httpResp.Header)
-	body, _ := ioutil.ReadAll(httpResp.Body)
-	fmt.Println("response Body:", string(body))
+	// fmt.Println("response Status:", httpResp.Status)
+	// fmt.Println("response Headers:", httpResp.Header)
+	// body, _ := ioutil.ReadAll(httpResp.Body)
+	// fmt.Println("response Body:", string(body))
 
-	return MessageResult{}
+	// return MessageResult{}
 
 }
