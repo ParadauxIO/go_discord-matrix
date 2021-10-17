@@ -1,2 +1,14 @@
+# Goland
+.idea/
+*.iml
+
+# Vscode
+.Vscode
+
 config.json
+
+# Linux Binary
 go_discord-matrix
+
+# Windows binary
+go_discord-matrix.exe
